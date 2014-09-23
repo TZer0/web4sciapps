@@ -25,14 +25,10 @@ def index():
         result = compute(**kwargs)
     else:
         result = None
+
     # Concatenate view_forms.html and view_results.html
-    forms_html   = os.path.join('templates', 'view_forms.html')
-    results_html = os.path.join('templates', 'view_results.html')
-    view_html    = os.path.join('templates', 'view.html')
-    f_forms = open(forms_html, 'r')
-    f_res   = open(results_html, 'r')
-    f_view  = open(view_html, 'w')
-    f_view.write(f_forms.read() + f_res.read())
-    f_forms.close();  f_res.close();  f_view.close()
-    return render_template(os.path.basename(view_html),
-                           form=form, result=result)
+    result_render = None
+    if result:
+	    result_render = render_template('view_results.html', result=result)
+    return render_template('view_forms.html',
+                           form=form, result=result_render)

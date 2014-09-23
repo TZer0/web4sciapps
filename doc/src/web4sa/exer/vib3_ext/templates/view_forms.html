@@ -12,4 +12,6 @@
   {% endfor %}
 </table>
 <p><input type=submit value=Compute></form></p>
-
+{% if result %}
+{{ result|safe }}
+{% endif %}
